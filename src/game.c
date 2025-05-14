@@ -1,5 +1,6 @@
 /* src/game.c */
 #include <stdio.h>
+#include<memory.h>
 #include "game.h"
 
 /* ゲームボード配列 */
