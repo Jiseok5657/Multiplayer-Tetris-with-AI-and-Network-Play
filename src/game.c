@@ -78,6 +78,7 @@ void init_board() {
     memset(board, 0, sizeof(board));
 }
 
+/* ボード初期化(ループ) */
 void init_board_loops() {
     int i, j;
     
@@ -121,6 +122,7 @@ void print_board() {
     refresh();
 }
 
+/* 衝突判定 */
 void spawn_new_block() {
     int type, i, j;
     type = (rand() % 7) + 1;  /* 1～7: I_BLOCK～L_BLOCK */
@@ -138,7 +140,36 @@ void spawn_new_block() {
 
 /* 衝突判定（座標および回転に基づく） */
 int check_collision(int x, int y, int rotation) {
-    /* Skip */
+    int i, j, r;
+    int shape[4][4];
+    /* 形状コピー */
+    for (i = 0; i < 4; ++i)
+        for (j = 0; j < 4; ++j)
+            shape[i][j] = current_block.shape[i][j];
+    /* 回転処理 */
+    for (r = 0; r < rotation; ++r) {
+        int tmp[4][4];
+        for (i = 0; i < 4; ++i)
+            for (j = 0; j < 4; ++j)
+                tmp[i][j] = shape[3 - j][i];
+        for (i = 0; i < 4; ++i)
+            for (j = 0; j < 4; ++j)
+                shape[i][j] = tmp[i][j];
+    }
+    /* 衝突チェック */
+    for (i = 0; i < 4; ++i) {
+        for (j = 0; j < 4; ++j) {
+            if (shape[i][j]) {
+                int nx = x + j;
+                int ny = y + i;
+                if (nx < 0 || nx >= BOARD_WIDTH || ny < 0 || ny >= BOARD_HEIGHT)
+                    return 1;
+                if (board[ny][nx])
+                    return 1;
+            }
+        }
+    }
+    return 0;
 }
 
 /* ブロックの移動 */
