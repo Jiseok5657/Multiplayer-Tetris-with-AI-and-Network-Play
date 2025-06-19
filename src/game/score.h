@@ -1,0 +1,1 @@
+// Score-related function declarations
