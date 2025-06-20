@@ -1,1 +1,18 @@
-// Score calculation, level and game over handling
+/**
+ * @file score.c
+ * @brief スコア管理実装
+ * 
+ * 主な機能:
+ *   - スコアリングシステム
+ *   - レベル進行管理
+ *   - コンボボーナス
+ *   - ゲームオーバー判定
+ * 
+ * 設計思想:
+ *   - テトリス公式ルールに準拠したスコア計算
+ *   - レベルアップによる難易度上昇
+ *   - 直感的なポイント加算
+ */
+
+#include "score.h"
+#include "game_defs.h"
